@@ -1,7 +1,7 @@
 {
     "name": "webbj74/jsdl-loader",
     "description": "A stand-alone JSON Service Description loader for Guzzle 5.x based on the ServiceDescriptionLoader class from Guzzle 3.x",
-    "homepage": "https://github.com/webbj74/guzzle-service-description-loader",
+    "homepage": "https://github.com/webbj74/jsdl-loader",
     "keywords": ["web service", "webservice", "REST", "guzzle"],
     "license": "MIT",
     "authors": [
