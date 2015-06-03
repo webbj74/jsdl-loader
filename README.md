@@ -7,16 +7,15 @@ This software is still pre-release.
 
 Add to composer:
 ```
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/webbj74/jsdl-loader"
-        }
-    ],
-    "require": {
-            "webbj74/jsdl-loader": "dev-master"
-    }
+$ composer require "webbj74/jsdl-loader:~0.1"
 ```
+
+or
+
+```
+$ composer require "webbj74/jsdl-loader:dev-master"
+```
+
 
 
 Based on the [guzzle/guzzle-services example](https://github.com/guzzle/guzzle-services/blob/0.5.0/README.rst).
