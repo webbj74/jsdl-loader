@@ -22,6 +22,7 @@
         "psr-4": { "Webbj74\\JSDL\\Loader\\": "src" }
     },
     "require-dev": {
-        "squizlabs/php_codesniffer": "*"
+        "squizlabs/php_codesniffer": "*",
+        "phpmd/phpmd": "@stable"
     }
 }
