@@ -25,5 +25,8 @@
         "squizlabs/php_codesniffer": "*",
         "phpmd/phpmd": "@stable",
         "phpunit/phpunit": "^5.5 || ^6.0 || ^7.0 || ^8.0"
+    },
+    "suggest": {
+        "guzzlehttp/guzzle-services": "Use service descriptions with Guzzle."
     }
 }
