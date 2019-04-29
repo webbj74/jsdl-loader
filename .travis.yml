@@ -1,0 +1,21 @@
+language: php
+
+php:
+  - 5.6
+  - 7.1
+  - 7.2
+  - 7.3
+
+before_script:
+  - composer self-update
+  - composer install
+
+# Fail if...
+# * phpunit tests fail/error
+# * phpcs tests indicate that PSR-2 compliance worsened
+# * phpmd tests indicate a mess
+script:
+  - mkdir -p build/logs
+  - vendor/bin/phpunit
+  - vendor/bin/phpcs -s --report-width=120 --standard=PSR2 ./{src,tests}
+  - vendor/bin/phpmd src text cleancode,codesize,controversial,design,naming,unusedcode
