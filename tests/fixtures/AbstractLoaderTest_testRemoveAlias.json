@@ -1,5 +1,5 @@
 {
-  "name": "testLoadFromFile",
+  "name": "testRemoveAlias",
   "apiVersion": "0.1",
-  "description": "testLoadFromFile"
+  "description": "testRemoveAlias"
 }
