@@ -10,13 +10,19 @@ use Webbj74\JSDL\Loader\AbstractLoader;
  */
 class AbstractLoaderTest extends TestCase
 {
+    /**
+     * Prefixes a file with the full path to the fixtures directory.
+     *
+     * @return string
+     *   The full path to the fixture.
+     */
     private function getFixturePath($filename)
     {
         return __DIR__ . '/fixtures/' . $filename;
     }
 
     /**
-     * @covers ::load
+     * Verify that ::load throws InvalidArgumentException if file does not exist.
      */
     public function testLoadThrowsExceptionIfFileDoesNotExist()
     {
@@ -27,7 +33,7 @@ class AbstractLoaderTest extends TestCase
     }
 
     /**
-     * @covers ::load
+     * Verify that ::load throws InvalidArgumentException if file extension is not known.
      */
     public function testLoadThrowsExceptionIfFileHasUnknownExtension()
     {
@@ -38,16 +44,41 @@ class AbstractLoaderTest extends TestCase
     }
 
     /**
-     * @covers ::load
+     *  Verify that ::load handles file argument.
      */
     public function testLoadFromFile()
     {
         $loader = $this->getMockForAbstractClass(AbstractLoader::class);
+        $loader->expects($this->once())
+            ->method('build')
+            ->with([
+                'name' => 'testLoadFromFile',
+                'apiVersion' => '0.1',
+                'description' => 'testLoadFromFile',
+            ]);
         $this->confirmValidLoaderFile($loader, $this->getFixturePath('AbstractLoaderTest_testLoadFromFile.json'));
     }
 
     /**
-     * @covers ::load
+     *  Verify that ::load handles array argument with config.
+     */
+    public function testLoadFromConfig()
+    {
+        $config = [
+            'name' => 'testLoadFromConfig',
+            'apiVersion' => '0.1',
+            'description' => 'testLoadFromConfig',
+        ];
+        $loader = $this->getMockForAbstractClass(AbstractLoader::class);
+        $loader->expects($this->once())
+            ->method('build')
+            ->with($config);
+        $this->assertNull($loader->load($config));
+    }
+
+    /**
+     * Verify that ::load throws InvalidArgumentException if given an argument it can't deal with.
+     *
      * @dataProvider badConfigProvider
      */
     public function testLoadThrowsExceptionForBadConfigArgument($config)
@@ -72,23 +103,41 @@ class AbstractLoaderTest extends TestCase
     }
 
     /**
-     * @covers ::addAlias
+     * Verify that an alias may be added.
+     *
+     * To do this we add an alias and use load to confirm that it was added.
      */
     public function testAddAlias()
     {
         $loader = $this->getMockForAbstractClass(AbstractLoader::class);
+        $loader->expects($this->once())
+            ->method('build')
+            ->with([
+                'name' => 'testAddAlias',
+                'apiVersion' => '0.1',
+                'description' => 'testAddAlias',
+            ]);
         $loader->addAlias('testAddAlias', $this->getFixturePath('AbstractLoaderTest_testAddAlias.json'));
         $this->confirmValidLoaderFile($loader, 'testAddAlias');
     }
 
     /**
-     * @covers ::removeAlias
-     * @depends testAddAlias
+     * Verify that an alias may be removed.
+     *
+     * To do this we add an alias, confirm that it was added, then expect an exception if we remove the alias.
      */
     public function testRemoveAlias()
     {
         $loader = $this->getMockForAbstractClass(AbstractLoader::class);
+        $loader->expects($this->once())
+            ->method('build')
+            ->with([
+                'name' => 'testRemoveAlias',
+                'apiVersion' => '0.1',
+                'description' => 'testRemoveAlias',
+            ]);
         $loader->addAlias('testRemoveAlias', $this->getFixturePath('AbstractLoaderTest_testRemoveAlias.json'));
+        $this->confirmValidLoaderFile($loader, 'testRemoveAlias');
         $loader->removeAlias('testRemoveAlias');
         $this->confirmInvalidLoaderFile($loader, 'testRemoveAlias');
     }
