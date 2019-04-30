@@ -21,6 +21,9 @@
     "autoload": {
         "psr-4": { "Webbj74\\JSDL\\Loader\\": "src" }
     },
+    "autoload-dev": {
+        "psr-4": { "Webbj74\\JSDL\\Loader\\Tests\\": "tests" }
+    },
     "require-dev": {
         "squizlabs/php_codesniffer": "*",
         "phpmd/phpmd": "@stable",
