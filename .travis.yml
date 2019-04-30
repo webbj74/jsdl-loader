@@ -19,3 +19,4 @@ script:
   - vendor/bin/phpunit
   - vendor/bin/phpcs -s --report-width=120 --standard=PSR2 ./{src,tests}
   - vendor/bin/phpmd src text cleancode,codesize,controversial,design,naming,unusedcode
+  - vendor/bin/phpmd tests text cleancode,codesize,controversial,design,naming,unusedcode
