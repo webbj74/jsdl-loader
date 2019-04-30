@@ -158,13 +158,16 @@ abstract class AbstractLoader implements LoaderInterface
     /**
      * Default implementation for merging two arrays of data (uses array_merge_recursive)
      *
-     * @param array $a Original data
-     * @param array $b Data to merge into the original and overwrite existing values
+     * @param array $array1
+     *   Initial array to merge.
+     * @param array $array2
+     *   Data to merge into $array1 and overwrite existing values.
      *
      * @return array
+     *   Merged array.
      */
-    protected function mergeData(array $a, array $b)
+    protected function mergeData(array $array1, array $array2)
     {
-        return array_merge_recursive($a, $b);
+        return array_merge_recursive($array1, $array2);
     }
 }
