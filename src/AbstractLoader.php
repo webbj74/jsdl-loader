@@ -45,14 +45,16 @@ abstract class AbstractLoader implements LoaderInterface
     /**
      * Add an include alias to the loader
      *
-     * @param string $filename Filename to alias (e.g. _foo)
-     * @param string $alias    Actual file to use (e.g. /path/to/foo.json)
+     * @param string $alias
+     *   Filename to alias (e.g. _foo).
+     * @param string $filename
+     *   Actual file to use (e.g. /path/to/foo.json).
      *
      * @return self
      */
-    public function addAlias($filename, $alias)
+    public function addAlias($alias, $filename)
     {
-        $this->aliases[$filename] = $alias;
+        $this->aliases[$alias] = $filename;
         return $this;
     }
 
