@@ -43,17 +43,23 @@ class ServiceDescriptionLoader extends AbstractLoader
     }
 
     /**
-     * @param string $name       Name of the operation
-     * @param array  $op         Operation value array
-     * @param array  $operations Currently loaded operations
+     * Inherit operation values from another operation.
+     *
+     * @param string $name
+     *   Name of the operation
+     * @param array  $operation
+     *   Operation value array
+     * @param array  $operations
+     *   Currently loaded operations
+     *
      * @throws \RuntimeException when extending a non-existent operation
      */
-    protected function resolveExtension($name, array &$op, array &$operations)
+    protected function resolveExtension($name, array &$operation, array &$operations)
     {
         $resolved = array();
-        $original = empty($op['parameters']) ? false: $op['parameters'];
-        $hasClass = !empty($op['class']);
-        foreach ((array) $op['extends'] as $extendedCommand) {
+        $original = empty($operation['parameters']) ? false: $operation['parameters'];
+        $hasClass = !empty($operation['class']);
+        foreach ((array) $operation['extends'] as $extendedCommand) {
             if (empty($operations[$extendedCommand])) {
                 throw new \RuntimeException("{$name} extends missing operation {$extendedCommand}");
             }
@@ -62,11 +68,11 @@ class ServiceDescriptionLoader extends AbstractLoader
                 ? $toArray['parameters']
                 : array_merge($resolved, $toArray['parameters']);
 
-            $op = $op + $toArray;
+            $operation = $operation + $toArray;
             if (!$hasClass && isset($toArray['class'])) {
-                $op['class'] = $toArray['class'];
+                $operation['class'] = $toArray['class'];
             }
         }
-        $op['parameters'] = $original ? array_merge($resolved, $original) : $resolved;
+        $operation['parameters'] = $original ? array_merge($resolved, $original) : $resolved;
     }
 }

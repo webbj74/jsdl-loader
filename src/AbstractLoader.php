@@ -66,7 +66,8 @@ abstract class AbstractLoader implements LoaderInterface
     /**
      * Remove an alias from the loader
      *
-     * @param string $alias Alias to remove
+     * @param string $alias
+     *   Alias to remove.
      *
      * @return self
      */
@@ -79,21 +80,29 @@ abstract class AbstractLoader implements LoaderInterface
     /**
      * Perform the parsing of a config file and create the end result
      *
-     * @param array $config  Configuration data
-     * @param array $options Options to use when building
+     * @param array $config
+     *   Array of Configuration data
+     * @param array $options
+     *   Options to use when building
      *
      * @return mixed
+     *   Array describing the service.
      */
     abstract protected function build($config, array $options);
 
     /**
      * Load a configuration file (can load JSON or PHP files that return an array when included)
      *
-     * @param string $filename File to load
+     * @param string $filename
+     *   File to load.
      *
      * @return array
+     *   Array of configuration data loaded from file.
+     *
      * @throws \InvalidArgumentException
-     * @throws \RuntimeException when the JSON cannot be parsed
+     *   When file cannot be read.
+     * @throws \RuntimeException
+     *   When the JSON cannot be parsed.
      *
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
@@ -140,10 +149,13 @@ abstract class AbstractLoader implements LoaderInterface
     /**
      * Merges in all include files
      *
-     * @param array  $config   Config data that contains includes
-     * @param string $basePath Base path to use when a relative path is encountered
+     * @param array  $config
+     *   Config data that contains includes.
+     * @param string $basePath
+     *   Base path to use when a relative path is encountered.
      *
-     * @return array Returns the merged and included data
+     * @return array
+     *   Returns the merged and included data.
      */
     protected function mergeIncludes(&$config, $basePath = null)
     {
