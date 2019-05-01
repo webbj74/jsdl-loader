@@ -28,6 +28,11 @@ abstract class AbstractLoader implements LoaderInterface
         JSON_ERROR_UTF8 => 'JSON_ERROR_UTF8 - Malformed UTF-8 characters, possibly incorrectly encoded'
     );
 
+    /**
+     * {@inheritdoc}
+     *
+     * @SuppressWarnings(PHPMD.ElseExpression)
+     */
     public function load($config, array $options = array())
     {
         // Reset the array of loaded files because this is a new config
@@ -89,6 +94,8 @@ abstract class AbstractLoader implements LoaderInterface
      * @return array
      * @throws \InvalidArgumentException
      * @throws \RuntimeException when the JSON cannot be parsed
+     *
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
     protected function loadFile($filename)
     {

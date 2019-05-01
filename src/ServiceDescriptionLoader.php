@@ -13,18 +13,23 @@ namespace Webbj74\JSDL\Loader;
  */
 class ServiceDescriptionLoader extends AbstractLoader
 {
+    /**
+     * {@inheritdoc}
+     *
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     */
     protected function build($config, array $options)
     {
         $operations = array();
         if (!empty($config['operations'])) {
-            foreach ($config['operations'] as $name => $op) {
-                $name = $op['name'] = isset($op['name']) ? $op['name'] : $name;
+            foreach ($config['operations'] as $name => $operation) {
+                $name = $operation['name'] = isset($operation['name']) ? $operation['name'] : $name;
                 // Extend other operations
-                if (!empty($op['extends'])) {
-                    $this->resolveExtension($name, $op, $operations);
+                if (!empty($operation['extends'])) {
+                    $this->resolveExtension($name, $operation, $operations);
                 }
-                $op['parameters'] = isset($op['parameters']) ? $op['parameters'] : array();
-                $operations[$name] = $op;
+                $operation['parameters'] = isset($operation['parameters']) ? $operation['parameters'] : array();
+                $operations[$name] = $operation;
             }
         }
 
