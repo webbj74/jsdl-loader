@@ -53,7 +53,7 @@ abstract class AbstractLoader implements LoaderInterface
      * @param string $alias
      *   Filename to alias (e.g. _foo).
      * @param string $filename
-     *   Actual file to use (e.g. /path/to/foo.json).
+     *   Absolute or relative path of the file (e.g. /path/to/foo.json).
      *
      * @return self
      */
