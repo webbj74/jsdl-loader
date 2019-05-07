@@ -27,7 +27,21 @@
     "require-dev": {
         "squizlabs/php_codesniffer": "*",
         "phpmd/phpmd": "@stable",
-        "phpunit/phpunit": "^5.5 || ^6.0 || ^7.0 || ^8.0"
+        "phpunit/phpunit": "^5.5 || ^6.0 || ^7.0 || ^8.0",
+        "phpcompatibility/php-compatibility": "*"
+    },
+    "scripts": {
+        "phpcs": [
+            "vendor/bin/phpcs -s --report-width=120 --standard=PSR2 ./{src,tests}",
+            "vendor/bin/phpcs --standard=vendor/phpcompatibility/php-compatibility/PHPCompatibility --runtime-set testVersion 5.6- ./{src,tests}"
+        ],
+        "phpmd": [
+            "vendor/bin/phpmd src text cleancode,codesize,controversial,design,naming,unusedcode",
+            "vendor/bin/phpmd tests text cleancode,codesize,controversial,design,naming,unusedcode"
+        ],
+        "phpunit": [
+            "vendor/bin/phpunit"
+        ]
     },
     "suggest": {
         "guzzlehttp/guzzle-services": "Use service descriptions with Guzzle."

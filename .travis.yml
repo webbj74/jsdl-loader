@@ -6,17 +6,31 @@ php:
   - 7.2
   - 7.3
 
+env:
+  - METHOD=phpunit
+  - METHOD=phpcs
+  - METHOD=phpmd
+
+
 before_script:
   - composer self-update
   - composer install
-
-# Fail if...
-# * phpunit tests fail/error
-# * phpcs tests indicate that PSR-2 compliance worsened
-# * phpmd tests indicate a mess
-script:
   - mkdir -p build/logs
-  - vendor/bin/phpunit
-  - vendor/bin/phpcs -s --report-width=120 --standard=PSR2 ./{src,tests}
-  - vendor/bin/phpmd src text cleancode,codesize,controversial,design,naming,unusedcode
-  - vendor/bin/phpmd tests text cleancode,codesize,controversial,design,naming,unusedcode
+
+script:
+  - composer run $METHOD
+
+matrix:
+  include:
+    - php: 5.6
+      env: METHOD=phpunit
+    - php: 7.1
+      env: METHOD=phpunit
+    - php: 7.2
+      env: METHOD=phpunit
+    - php: 7.3
+      env: METHOD=phpunit
+    - php: 7.3
+      env: METHOD=phpcs
+    - php: 7.3
+      env: METHOD=phpmd
