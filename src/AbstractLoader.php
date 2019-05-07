@@ -153,9 +153,6 @@ abstract class AbstractLoader implements LoaderInterface
      *   Config data that contains includes.
      * @param string $basePath
      *   Base path to use when a relative path is encountered.
-     *
-     * @return array
-     *   Returns the merged and included data.
      */
     protected function mergeIncludes(&$config, $basePath = null)
     {
