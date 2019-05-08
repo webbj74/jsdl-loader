@@ -1,0 +1,36 @@
+language: php
+
+php:
+  - 5.6
+  - 7.1
+  - 7.2
+  - 7.3
+
+env:
+  - METHOD=phpunit
+  - METHOD=phpcs
+  - METHOD=phpmd
+
+
+before_script:
+  - composer self-update
+  - composer install
+  - mkdir -p build/logs
+
+script:
+  - composer run $METHOD
+
+matrix:
+  exclude:
+    - php: 5.6
+      env: METHOD=phpcs
+    - php: 5.6
+      env: METHOD=phpmd
+    - php: 7.1
+      env: METHOD=phpcs
+    - php: 7.1
+      env: METHOD=phpmd
+    - php: 7.2
+      env: METHOD=phpcs
+    - php: 7.2
+      env: METHOD=phpmd

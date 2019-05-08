@@ -28,6 +28,11 @@ abstract class AbstractLoader implements LoaderInterface
         JSON_ERROR_UTF8 => 'JSON_ERROR_UTF8 - Malformed UTF-8 characters, possibly incorrectly encoded'
     );
 
+    /**
+     * {@inheritdoc}
+     *
+     * @SuppressWarnings(PHPMD.ElseExpression)
+     */
     public function load($config, array $options = array())
     {
         // Reset the array of loaded files because this is a new config
@@ -45,21 +50,24 @@ abstract class AbstractLoader implements LoaderInterface
     /**
      * Add an include alias to the loader
      *
-     * @param string $filename Filename to alias (e.g. _foo)
-     * @param string $alias    Actual file to use (e.g. /path/to/foo.json)
+     * @param string $alias
+     *   Filename to alias (e.g. _foo).
+     * @param string $filename
+     *   Absolute or relative path of the file (e.g. /path/to/foo.json).
      *
      * @return self
      */
-    public function addAlias($filename, $alias)
+    public function addAlias($alias, $filename)
     {
-        $this->aliases[$filename] = $alias;
+        $this->aliases[$alias] = $filename;
         return $this;
     }
 
     /**
      * Remove an alias from the loader
      *
-     * @param string $alias Alias to remove
+     * @param string $alias
+     *   Alias to remove.
      *
      * @return self
      */
@@ -72,21 +80,31 @@ abstract class AbstractLoader implements LoaderInterface
     /**
      * Perform the parsing of a config file and create the end result
      *
-     * @param array $config  Configuration data
-     * @param array $options Options to use when building
+     * @param array $config
+     *   Array of Configuration data
+     * @param array $options
+     *   Options to use when building
      *
      * @return mixed
+     *   Array describing the service.
      */
     abstract protected function build($config, array $options);
 
     /**
      * Load a configuration file (can load JSON or PHP files that return an array when included)
      *
-     * @param string $filename File to load
+     * @param string $filename
+     *   File to load.
      *
      * @return array
+     *   Array of configuration data loaded from file.
+     *
      * @throws \InvalidArgumentException
-     * @throws \RuntimeException when the JSON cannot be parsed
+     *   When file cannot be read.
+     * @throws \RuntimeException
+     *   When the JSON cannot be parsed.
+     *
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
     protected function loadFile($filename)
     {
@@ -131,10 +149,10 @@ abstract class AbstractLoader implements LoaderInterface
     /**
      * Merges in all include files
      *
-     * @param array  $config   Config data that contains includes
-     * @param string $basePath Base path to use when a relative path is encountered
-     *
-     * @return array Returns the merged and included data
+     * @param array  $config
+     *   Config data that contains includes.
+     * @param string $basePath
+     *   Base path to use when a relative path is encountered.
      */
     protected function mergeIncludes(&$config, $basePath = null)
     {
@@ -156,13 +174,16 @@ abstract class AbstractLoader implements LoaderInterface
     /**
      * Default implementation for merging two arrays of data (uses array_merge_recursive)
      *
-     * @param array $a Original data
-     * @param array $b Data to merge into the original and overwrite existing values
+     * @param array $array1
+     *   Initial array to merge.
+     * @param array $array2
+     *   Data to merge into $array1 and overwrite existing values.
      *
      * @return array
+     *   Merged array.
      */
-    protected function mergeData(array $a, array $b)
+    protected function mergeData(array $array1, array $array2)
     {
-        return array_merge_recursive($a, $b);
+        return array_merge_recursive($array1, $array2);
     }
 }
